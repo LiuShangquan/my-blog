@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
     env:
+      # 固定版本避免上游变更导致工作流不稳定；需要升级时修改这里即可
       OSSUTIL_VERSION: 1.7.16
     steps:
       - name: Checkout repository
@@ -70,4 +71,16 @@ jobs:
             --region "${ALIYUN_REGION_ID}" \
             --access-key-id "${ALIYUN_ACCESS_KEY_ID}" \
             --access-key-secret "${ALIYUN_ACCESS_KEY_SECRET}"
-          aliyun cdn RefreshObjectCaches --ObjectPath "${ALIYUN_CDN_OBJECT_PATHS}" --ObjectType Directory
+          while IFS= read -r object_path || [ -n "${object_path}" ]; do
+            object_path="$(echo "${object_path}" | xargs)"
+            if [ -z "${object_path}" ]; then
+              continue
+            fi
+            object_type="File"
+            case "${object_path}" in
+              */) object_type="Directory" ;;
+            esac
+            aliyun cdn RefreshObjectCaches --ObjectPath "${object_path}" --ObjectType "${object_type}"
+          done <<EOF
+          ${ALIYUN_CDN_OBJECT_PATHS}
+          EOF
