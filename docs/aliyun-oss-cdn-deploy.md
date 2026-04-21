@@ -43,7 +43,15 @@
 2. 查看 `Actions` 页的 `Deploy Hexo to Aliyun OSS` 工作流。
 3. 成功后访问域名确认内容已更新。
 
-## 6. 性能优化建议
+## 6. 配置 Decap CMS 关键参数
+
+编辑 `/source/admin/config.yml`：
+
+- 将 `backend.base_url` 替换为你的 GitHub OAuth 代理地址
+- 将 `site_url`、`display_url` 替换为你的博客正式域名
+- 根据默认分支调整 `backend.branch`（`main` 或 `master`）
+
+## 7. 性能优化建议
 
 - OSS 静态资源开启更长缓存时间，HTML 设置短缓存。
 - CDN 开启 Brotli/Gzip 压缩。

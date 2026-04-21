@@ -29,6 +29,7 @@ npm run server
 
 - 检查网络是否可访问 `unpkg.com`（Decap CMS 脚本来源）。
 - 打开浏览器控制台查看脚本加载错误。
+- 如需避免公共 CDN，可将 `source/admin/index.html` 中脚本改为自托管静态文件地址。
 
 ### 2) 无法登录 GitHub
 

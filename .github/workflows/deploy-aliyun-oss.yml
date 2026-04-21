@@ -14,6 +14,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     if: ${{ github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' }}
+    env:
+      OSSUTIL_VERSION: 1.7.16
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -32,7 +34,7 @@ jobs:
 
       - name: Install ossutil
         run: |
-          curl -sSL https://gosspublic.alicdn.com/ossutil/1.7.16/ossutil64 -o ossutil
+          curl -sSL "https://gosspublic.alicdn.com/ossutil/${OSSUTIL_VERSION}/ossutil64" -o ossutil
           chmod +x ossutil
           sudo mv ossutil /usr/local/bin/ossutil
 
@@ -53,13 +55,16 @@ jobs:
           sudo mv aliyun /usr/local/bin/aliyun
 
       - name: Refresh CDN cache
-        if: ${{ secrets.ALIYUN_CDN_OBJECT_PATHS != '' }}
         env:
           ALIYUN_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
           ALIYUN_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
           ALIYUN_REGION_ID: ${{ secrets.ALIYUN_REGION_ID }}
           ALIYUN_CDN_OBJECT_PATHS: ${{ secrets.ALIYUN_CDN_OBJECT_PATHS }}
         run: |
+          if [ -z "${ALIYUN_CDN_OBJECT_PATHS}" ]; then
+            echo "ALIYUN_CDN_OBJECT_PATHS 未配置，跳过 CDN 刷新"
+            exit 0
+          fi
           aliyun configure set \
             --mode AK \
             --region "${ALIYUN_REGION_ID}" \

@@ -2,10 +2,12 @@ backend:
   name: github
   repo: LiuShangquan/my-blog
   branch: main
+  # 替换为你的 OAuth 代理地址，例如 https://xxx.netlify.app/.netlify/functions
   base_url: https://YOUR_OAUTH_PROXY_DOMAIN
   auth_endpoint: auth
 
 local_backend: true
+# 替换为你的博客正式访问地址
 site_url: https://YOUR_BLOG_DOMAIN
 display_url: https://YOUR_BLOG_DOMAIN
 logo_url: /favicon.ico
