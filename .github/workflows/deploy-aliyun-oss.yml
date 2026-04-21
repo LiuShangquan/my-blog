@@ -71,7 +71,7 @@ jobs:
             --region "${ALIYUN_REGION_ID}" \
             --access-key-id "${ALIYUN_ACCESS_KEY_ID}" \
             --access-key-secret "${ALIYUN_ACCESS_KEY_SECRET}"
-          while IFS= read -r object_path || [ -n "${object_path}" ]; do
+          while IFS= read -r object_path; do
             object_type="File"
             case "${object_path}" in
               */) object_type="Directory" ;;

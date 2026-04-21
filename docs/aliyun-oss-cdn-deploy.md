@@ -35,9 +35,11 @@
 - `ALIYUN_REGION_ID`（例如 `cn-hangzhou`）
 - `ALIYUN_OSS_ENDPOINT`（例如 `oss-cn-hangzhou.aliyuncs.com`）
 - `ALIYUN_OSS_BUCKET`（你的 bucket 名称）
-- `ALIYUN_CDN_OBJECT_PATHS`（刷新路径, 多个用换行分隔, 例如）
-  - `https://blog.example.com/`
-  - `https://blog.example.com/css/style.css`
+- `ALIYUN_CDN_OBJECT_PATHS`（刷新路径, 多个用换行分隔。Secret 值填写纯文本, 例如）
+  ```text
+  https://blog.example.com/
+  https://blog.example.com/css/style.css
+  ```
 
 ## 5. 验证自动部署
 
