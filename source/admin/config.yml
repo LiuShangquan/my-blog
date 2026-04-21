@@ -2,13 +2,13 @@ backend:
   name: github
   repo: LiuShangquan/my-blog
   branch: main
-  # 替换为你的 OAuth 代理地址（例如 Netlify Functions / 自建 OAuth 服务入口）
+  # 替换为你的 OAuth 代理地址（必须是 HTTPS，例如 Netlify Functions / 自建 OAuth 服务入口）
   # 示例：https://xxx.netlify.app/.netlify/functions
   base_url: https://YOUR_OAUTH_PROXY_DOMAIN
   auth_endpoint: auth
 
 local_backend: true
-# 替换为你的博客正式访问地址（生产环境 URL）
+# 替换为你的博客正式访问地址（生产环境 URL，建议使用 CDN 加速域名）
 site_url: https://YOUR_BLOG_DOMAIN
 display_url: https://YOUR_BLOG_DOMAIN
 logo_url: /favicon.ico
